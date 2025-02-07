@@ -3,16 +3,30 @@ apiVersion: v1
 metadata:
   name: miniflux
   namespace: miniflux
+  labels:
+    app: miniflux
 spec:
   selector:
     app: miniflux
   ports:
   - protocol: TCP
     port: 8080
+    name: web
   clusterIP: None
 ---
-kind: VMServiceScrapes
-apiVersion: v1
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
 metadata:
   name: miniflux
-  namespace: miniflux
+  namespace: vm  # Change to your desired namespace
+spec:
+  namespaceSelector:
+    matchNames:
+      - miniflux  # Change to the namespace where your service is running
+  selector:
+    matchLabels:
+      app: "miniflux"
+  endpoints:
+    - port: web  # The port name from your service
+      path: "/metrics"  # Metrics path
+      interval: 30s

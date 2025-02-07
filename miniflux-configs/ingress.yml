@@ -4,15 +4,22 @@ metadata:
   name: miniflux
   namespace: miniflux
   annotations:
-     ingress.kubernetes.io/ssl-redirect: "false"
-     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-     cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: "miniflux-redirect-blocked@kubernetescrd"
+    traefik.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: traefik
   rules:
     - host: miniflux.zrui.dev
       http:
         paths:
+          - path: /metrics
+            pathType: Prefix
+            backend:
+              service:
+                name: miniflux
+                port:
+                  number: 8080
           - path: /
             pathType: Prefix
             backend:

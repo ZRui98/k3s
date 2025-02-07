@@ -16,6 +16,8 @@ spec:
             values:
             - storage
   selectAllByDefault: true
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
   remoteWrite:
   - url: "http://vmsingle-vm-single.vm.svc:8429/api/v1/write"
   statefulMode: true
