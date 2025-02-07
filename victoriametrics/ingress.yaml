@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vm-ingress
+  namespace: vm
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: vm-auth-mw@kubernetescrd
+    traefik.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: victoriametrics.k8s.zrui.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vmsingle-vm-single
+                port:
+                  number: 8429
+
+    - host: victorialogs.k8s.zrui.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vlogs-vm-logs
+                port:
+                  number: 9428
+  tls:
+    - secretName: victoriametrics-tls-secret
+      hosts:
+        - victoriametrics.k8s.zrui.dev
+        - victorialogs.k8s.zrui.dev

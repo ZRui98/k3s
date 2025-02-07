@@ -1,0 +1,8 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: auth-mw
+  namespace: vm
+spec:
+  basicAuth:
+    secret: vmui-auth-secret
