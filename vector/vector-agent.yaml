@@ -87,14 +87,7 @@ data:
           - "http://vlogs-vm-logs.vm.svc:9428/insert/elasticsearch/"
         encoding:
           except_fields:
-            - ".kubernetes.container_name"
-            - ".kubernetes.pod_name"
-            - ".kubernetes.pod_namespace"
-            - ".kubernetes.pod_node_name"
-            - ".kubernetes.container_id"
-            - ".kubernetes.container_name"
-            - ".kubernetes.container_image_id"
-            - ".kubernetes.node_labels.beta"
+            - "kubernetes"
         mode: bulk
         api_version: "v8"
         healthcheck:
