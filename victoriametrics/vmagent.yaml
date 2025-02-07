@@ -1,0 +1,27 @@
+# select all scrape objects in the cluster
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: vmagent
+  namespace: vm
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: type
+            operator: In
+            values:
+            - storage
+  selectAllByDefault: true
+  remoteWrite:
+  - url: "http://vmsingle-vm-single.vm.svc:8429/api/v1/write"
+  statefulMode: true
+  statefulStorage:
+    volumeClaimTemplate:
+      spec:
+        resources:
+            requests:
+              storage: 5Gi

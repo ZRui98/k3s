@@ -1,0 +1,12 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: block-path
+  namespace: default
+spec:
+  errors:
+    status:
+      - "403"
+    service:
+      name: noop
+      port: 80

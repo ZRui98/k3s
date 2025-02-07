@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Override the namespace of all of the resources we manage.
+namespace: vector
+
+  # Include Vector recommended base (from git).
+
+  # Override the Vector image to pin the version used.
+images:
+- name: timberio/vector
+  newName: timberio/vector
+  newTag: 0.44.0-distroless-libc
+
+  # The namespace previously created to keep the resources in.
+resources:
+- namespace.yaml
+- github.com/vectordotdev/vector/distribution/kubernetes/vector-agent

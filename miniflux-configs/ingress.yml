@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: miniflux
+  namespace: miniflux
+  annotations:
+     ingress.kubernetes.io/ssl-redirect: "false"
+     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+     cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: miniflux.zrui.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: miniflux
+                port:
+                  number: 8080
+  tls:
+    - secretName: miniflux-tls-secret
+      hosts:
+        - miniflux.zrui.dev

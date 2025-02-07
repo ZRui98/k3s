@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: miniflux
+  name: miniflux
+  labels:
+    app: miniflux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miniflux
+  template:
+    metadata:
+      labels:
+        app: miniflux
+    spec:
+      containers:
+        - image: miniflux/miniflux
+          name: miniflux
+          env:
+          # This is necessary for the miniflux to update the db schema, even on an empty DB
+          - name: CREATE_ADMIN
+            value: "1"
+          - name: RUN_MIGRATIONS
+            value: "1"
+          - name: ADMIN_USERNAME
+            value: "admin"
+          - name: ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-credentials
+                key: admin-password.secret
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-credentials
+                key: database-url.secret
+          - name: METRICS_COLLECTOR
+            value: "1"
+          - name: METRICS_ALLOWED_NETWORKS
+            value: "0.0.0.0/0" # open to all, it will be gated by the ingress instread
