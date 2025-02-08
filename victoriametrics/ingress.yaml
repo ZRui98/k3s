@@ -13,7 +13,14 @@ spec:
     - host: victoriametrics.k8s.zrui.dev
       http:
         paths:
-          - path: /
+          - path: /vmui
+            pathType: Prefix
+            backend:
+              service:
+                name: vmsingle-vm-single
+                port:
+                  number: 8429
+          - path: /prometheus
             pathType: Prefix
             backend:
               service:
@@ -24,7 +31,7 @@ spec:
     - host: victorialogs.k8s.zrui.dev
       http:
         paths:
-          - path: /
+          - path: /select
             pathType: Prefix
             backend:
               service:
