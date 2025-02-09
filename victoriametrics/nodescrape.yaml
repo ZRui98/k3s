@@ -2,6 +2,7 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMNodeScrape
 metadata:
   name: cadvisor-metrics
+  namespace: vm
 spec:
   scheme: "https"
   tlsConfig:
