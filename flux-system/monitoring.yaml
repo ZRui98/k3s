@@ -8,6 +8,6 @@ spec:
     matchNames:
       - flux-system  # Change to the namespace where your service is running
   endpoints:
-    - port: http  # The port name from your service
+    - port: http-prom  # The port name from your service
       path: "/metrics"  # Metrics path
       interval: 30s
