@@ -18,7 +18,7 @@ spec:
           - notification-controller
           - image-automation-controller
           - image-reflector-controller
-  endpoints:
+  podMetricsEndpoints:
     - port: http-prom  # The port name from your service
       path: "/metrics"  # Metrics path
       interval: 30s
