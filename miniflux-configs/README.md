@@ -5,7 +5,7 @@ miniflux rss
 ## prereqs
 
 set up with some secrets before hand
-```
+```bash
 kubectl create secret -n miniflux generic miniflux-credentials \
    --from-file=admin-password.secret \
    --from-file=database-url.secret \
