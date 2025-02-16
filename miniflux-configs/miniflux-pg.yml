@@ -28,7 +28,7 @@ spec:
       containers:
       - name: db
         image: postgres:11
-        imagePullPolicy: "Always"
+        imagePullPolicy: IfNotPresent
         env:
         - name: POSTGRES_USER
           value: "miniflux"
