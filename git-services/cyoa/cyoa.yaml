@@ -1,0 +1,29 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: cyoa
+  namespace: git-reconcilers
+spec:
+  interval: 5m0s
+  url: https://github.com/zrui98/cyoa
+  ref:
+    branch: master
+  ignore: |
+    # exclude all
+    /*
+    # include deploy dir
+    !/server/kubernetes/**/*.yaml
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  app: cyoa
+  namespace: git-reconcilers
+spec:
+  interval: 5m
+  path: "./server/kubernetes"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cyoa
