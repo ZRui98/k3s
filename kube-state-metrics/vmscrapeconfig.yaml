@@ -1,0 +1,10 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMScrapeConfig
+metadata:
+  name: kube-state-metrics
+  namespace: kube-system
+spec:
+  staticTargets:
+    - targets:
+        - kube-state-metrics.monitoring.svc.cluster.local:8080
+  jobName: kube-state-metrics
