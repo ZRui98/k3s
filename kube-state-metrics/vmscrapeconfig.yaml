@@ -7,4 +7,3 @@ spec:
   staticTargets:
     - targets:
         - kube-state-metrics.kube-system.svc.cluster.local:8080
-  jobName: kube-state-metrics
