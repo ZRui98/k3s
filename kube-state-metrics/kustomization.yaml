@@ -9,3 +9,4 @@ resources:
 - crs-configmap.yaml
 - deployment.yaml
 - service.yaml
+- vmscrapeconfig.yaml
