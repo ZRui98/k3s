@@ -31,10 +31,6 @@ spec:
         name: kube-state-metrics
         args:
           - --custom-resource-state-only=true
-        volumes:
-          - name: customresourcestate-config
-            configMap:
-              name: customresourcestate-config
         ports:
         - containerPort: 8080
           name: http-metrics
@@ -56,6 +52,10 @@ spec:
           runAsUser: 65534
           seccompProfile:
             type: RuntimeDefault
+      volumes:
+        - name: customresourcestate-config
+          configMap:
+            name: customresourcestate-config
       nodeSelector:
         kubernetes.io/os: linux
       serviceAccountName: kube-state-metrics
