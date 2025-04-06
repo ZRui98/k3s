@@ -29,6 +29,12 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 5
         name: kube-state-metrics
+        args:
+          - --custom-resource-state-only=true
+        volumes:
+          - name: customresourcestate-config
+            configMap:
+              name: customresourcestate-config
         ports:
         - containerPort: 8080
           name: http-metrics
