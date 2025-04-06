@@ -4,6 +4,6 @@ metadata:
   name: kube-state-metrics
   namespace: kube-system
 spec:
-  staticTargets:
+  staticConfigs:
     - targets:
-        - kube-state-metrics.kube-system.svc.cluster.local:8080
+        - url: kube-state-metrics.kube-system.svc.cluster.local:8080
