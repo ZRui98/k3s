@@ -30,6 +30,7 @@ spec:
           timeoutSeconds: 5
         name: kube-state-metrics
         args:
+          - --custom-resource-state-config-file=/etc/customresourcestate/config.yaml
           - --custom-resource-state-only=true
         ports:
         - containerPort: 8080
@@ -52,6 +53,10 @@ spec:
           runAsUser: 65534
           seccompProfile:
             type: RuntimeDefault
+        volumeMounts:
+          - name: customresourcestate-config
+            mountPath: /etc/customresourcestate
+            readOnly: true
       volumes:
         - name: customresourcestate-config
           configMap:
