@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: pat
+  namespace: git-reconcilers
+spec:
+  encryptedData:
+    pat: AgBacNNG7Kx+fgNGv0VxpGmoNvg6rSnLe/Ebyt/UrIn19tt9EUhxodbyk0wwuJVdqIAmtEaRteiQtYHN/Nk/W+3iUGg8SWUm3oGijw+pXcEgnxnlT2aOIFCw6MseK9mOgQrwxe9i2fPERQDhyyuMJvVXoofOxllj4FMdOD2eplYpsA5JdV1yInm/KcJEjChQiQ3eBxS39+/J+FbrnZCwBxOke+Ce164K/iZLMkiEEO5Yd9E/5zD0+S6ym2lvQrd7in1cXJ7Sj98zZH1xua+6dTg4Qf9gQXqkeC2hzKkZsKvgksPXXtv5fAicqWxztRBNb6TFKsXtY/kSFj8mTWeRLbQmtmuWn1RGxyWj5B0RpJl/hUGuz+xaj2JPUnAIckWoCZh83LAImNrZNKmbIPGaiLpiV6bJR3k6PhVLpmKCbn7ZvOjXrCjXt+n9BABp39ssrSdI4cw6+/fc5nQqEDsPUoQHBKG0W5dVwZaq0shmrwfPE/Hv/St+aVb7yTy3iEE6p/XtckDu1kc2R0hYshHa0WA+nTcIccNwkl3zeo6IJ7pEXpL9wGooaVK83IPgibzunenaPPC5yIJ6k4Buejb31EB7CXHqrWC/tPHo63MKMgZ7GkTLjnli+Ra27RdOmxuKPM+e7/mtPfOcbOg0x0zrkrof7okQOi+qIRE3JlAmD9gJ5SKsCrj42AZfuxnb5DJsATyWbBbYT4kghSpV+8uJxpZgYP+g2s/C3GWoi9Pi/H93EMrFqZkLsyNb
+  template:
+    metadata:
+      creationTimestamp: null
+      name: pat
+      namespace: git-reconcilers
