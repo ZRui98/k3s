@@ -19,7 +19,7 @@ metadata:
   namespace: git-reconcilers
 spec:
   interval: 5m
-  path: "."
+  path: "./"
   prune: true
   sourceRef:
     kind: GitRepository
