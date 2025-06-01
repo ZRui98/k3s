@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: sealed-secrets
-      version: ">=1.15.0-0"
+      version: ">=2.16.2"
   interval: 24h0m0s
   timeout: 10m
   releaseName: sealed-secrets-controller
