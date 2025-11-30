@@ -35,12 +35,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: forgejo-db-credentials
-              key: USER.secret
+              key: USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: forgejo-db-credentials
-              key: PASSWD.secret
+              key: PASSWD
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: postgres-data
