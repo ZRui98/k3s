@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: forgejo
+  name: forgejo-pg
+  labels:
+    app: forgejo-pg
+spec:
+  serviceName: "forgejo-pg"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forgejo-pg
+  template:
+    metadata:
+      labels:
+        app: forgejo-pg
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - storage
+      containers:
+      - name: forgejo-pg
+        image: postgres:17
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: forgejo-db-credentials
+              key: USER.secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: forgejo-db-credentials
+              key: PASSWD.secret
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+      annotations:
+        backup.kubernetes.io/deltas: P1D P7D
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Gi

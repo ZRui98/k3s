@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: forgejo-pg
+  namespace: forgejo
+spec:
+  selector:
+    app: forgejo-pg
+  ports:
+  - protocol: TCP
+    port: 5432
+  clusterIP: None
