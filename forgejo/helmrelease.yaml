@@ -32,6 +32,8 @@ spec:
     gitea:
       admin:
         existingSecret: forgejo-admin-secret
+      service:
+        DISABLE_REGISTRATION: true
       config:
         APP_NAME: "Forgejo"
         indexer:
@@ -42,7 +44,9 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       tls:
-        secretName: forgejo-tls-secret
+        - hosts:
+          - git.zrui.dev
+          secretName: forgejo-tls-secret
       hosts:
         - host: git.zrui.dev
           paths:
