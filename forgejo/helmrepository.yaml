@@ -4,6 +4,7 @@ metadata:
   name: forgejo
   namespace: flux-system
 spec:
+  provider: generic
   type: "oci"
   interval: 24h0m0s
   url: oci://code.forgejo.org/forgejo-helm/forgejo
