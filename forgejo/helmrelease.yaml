@@ -47,6 +47,9 @@ spec:
             - path: /
               pathType: Prefix
               port: http
+            - path: /
+              pathType: Prefix
+              port: https
     persistence:
       enabled: true
       create: true
