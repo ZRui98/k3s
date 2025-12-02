@@ -11,7 +11,7 @@ spec:
         kind: OCIRepository
         name: forgejo
         namespace: flux-system
-        version: "15.0.3"
+      version: "15.0.3"
   interval: 24h0m0s
   timeout: 10m
   releaseName: forgejo
