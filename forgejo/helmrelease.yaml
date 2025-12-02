@@ -41,15 +41,14 @@ spec:
       className: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls:
+        secretName: forgejo-tls-secret
       hosts:
         - host: git.zrui.dev
           paths:
             - path: /
               pathType: Prefix
               port: http
-            - path: /
-              pathType: Prefix
-              port: https
     persistence:
       enabled: true
       create: true
