@@ -1,10 +1,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: forgejo-oci
+  name: forgejo
   namespace: flux-system
 spec:
-  interval: 23h0m0s
+  interval: 24h0m0s
   url: oci://code.forgejo.org/forgejo-helm/forgejo
   ref:
     tag: 15.0.3
