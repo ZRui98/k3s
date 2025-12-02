@@ -32,10 +32,10 @@ spec:
     gitea:
       admin:
         existingSecret: forgejo-admin-secret
-      service:
-        DISABLE_REGISTRATION: true
       config:
         APP_NAME: "Forgejo"
+        service:
+          DISABLE_REGISTRATION: true
         indexer:
           REPO_INDEXER_ENABLED: true
     ingress:
