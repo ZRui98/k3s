@@ -1,0 +1,60 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: forgejo
+  namespace: forgejo
+spec:
+  chart:
+    spec:
+      chart: forgejo
+      sourceRef:
+        kind: HelmRepository
+        name: forgejo
+      version: ">=15.0.3"
+  interval: 24h0m0s
+  timeout: 10m
+  releaseName: forgejo
+  targetNamespace: forgejo
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: enabled
+  values:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: type
+              operator: In
+              values:
+              - storage
+    gitea:
+      admin:
+        existingSecret: forgejo-admin-secret
+      config:
+        APP_NAME: "Forgejo"
+        indexer:
+          REPO_INDEXER_ENABLED: true
+    ingress:
+      enabled: true
+      className: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: git.zrui.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              port: http
+    persistence:
+      enabled: true
+      create: true
+      mount: true
+      claimName: forgejo-shared-storage
+      size: 15Gi
+      accessModes:
+        - ReadWriteOnce
