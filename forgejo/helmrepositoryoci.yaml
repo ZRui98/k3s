@@ -4,7 +4,7 @@ metadata:
   name: forgejo
   namespace: flux-system
 spec:
-  interval: 24h0m0s
+  interval: 10m
   url: oci://code.forgejo.org/forgejo-helm/forgejo
   ref:
     tag: 16.0.2
