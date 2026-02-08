@@ -16,6 +16,9 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 30m
   driftDetection:
     mode: enabled
   values:
@@ -63,3 +66,5 @@ spec:
       size: 15Gi
       accessModes:
         - ReadWriteOnce
+    strategy:
+      type: Recreate
