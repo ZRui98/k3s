@@ -4,7 +4,7 @@ metadata:
   name: woodpeckerci
   namespace: flux-system
 spec:
-  interval: 24h0m0s
+  interval: 10m
   url: oci://ghcr.io/woodpecker-ci/helm/woodpecker
   ref:
     tag: 3.4.2
