@@ -1,0 +1,43 @@
+metadata:
+  name: woodpecker
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: woodpecker
+    namespace: flux-system
+  interval: 24h0m0s
+  timeout: 10m
+  releaseName: woodpecker
+  targetNamespace: woodpecker
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: enabled
+  values:
+    agent:
+      env:
+        WOODPECKER_BACKEND: "kubernetes"
+        WOODPECKER_BACKEND_NAMESPACE: "woodpecker"
+        WOODPECKER_BACKEND_K8S_VOLUME_SIZE: "6G"
+      serviceAccount:
+        name: "woodpecker-agent"
+    server:
+      ingress:
+        enabled: true
+        className: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        tls:
+          - hosts:
+            - ci.zrui.dev
+            secretName: woodpecker-tls-secret
+        hosts:
+          - host: ci.zrui.dev
+            paths:
+              - backend:
+                  serviceName: "ci.zrui.dev"
+                  servicePort: 80
+                path: "/"
