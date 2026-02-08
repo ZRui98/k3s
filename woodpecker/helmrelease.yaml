@@ -28,7 +28,7 @@ spec:
         name: "woodpecker-agent"
     server:
       ingress:
-        enabled: true
+        enabled: false
         className: traefik
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-prod
