@@ -7,4 +7,4 @@ spec:
   interval: 10m
   url: oci://code.forgejo.org/forgejo-helm/forgejo
   ref:
-    tag: 16.0.2
+    semver: ">=16.0.0 <17.0.0"
