@@ -38,6 +38,8 @@ spec:
           DISABLE_REGISTRATION: true
         indexer:
           REPO_INDEXER_ENABLED: true
+        actions:
+          ENABLED: false
     ingress:
       enabled: true
       className: traefik
