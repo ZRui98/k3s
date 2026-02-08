@@ -9,7 +9,7 @@ spec:
     name: forgejo
     namespace: flux-system
   interval: 24h0m0s
-  timeout: 10m
+  timeout: 15m
   releaseName: forgejo
   targetNamespace: forgejo
   install:

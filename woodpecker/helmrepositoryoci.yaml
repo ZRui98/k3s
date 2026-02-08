@@ -7,4 +7,4 @@ spec:
   interval: 10m
   url: oci://ghcr.io/woodpecker-ci/helm/woodpecker
   ref:
-    tag: 3.4.2
+    semver: ">=3.0.0 <4.0.0"
