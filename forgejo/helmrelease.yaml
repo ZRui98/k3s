@@ -22,6 +22,9 @@ spec:
   driftDetection:
     mode: enabled
   values:
+    strategy:
+      type: Recreate
+      rollingUpdate: {}
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -66,5 +69,3 @@ spec:
       size: 15Gi
       accessModes:
         - ReadWriteOnce
-    strategy:
-      type: Recreate
