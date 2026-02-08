@@ -16,9 +16,6 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
-    strategy:
-      name: RetryOnFailure
-      retryInterval: 30m
   driftDetection:
     mode: enabled
   values:
