@@ -6,7 +6,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: woodpeckerci
+    name: woodpecker
     namespace: flux-system
   interval: 24h0m0s
   timeout: 10m
