@@ -24,15 +24,7 @@ spec:
     mode: enabled
   values:
     ingress:
-      enabled: true
-      className: traefik
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      rulesOverride:
-        - host: auth.zrui.dev
-      tls:
-        enabled: true
-        secret: authelia-tls-secret
+      enabled: false
 
     pod:
       replicas: 1
