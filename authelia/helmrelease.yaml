@@ -62,7 +62,7 @@ spec:
           path: SESSION_ENCRYPTION_KEY
         cookies:
           - domain: zrui.dev
-            authelia_url: https://auth.zrui.dev
+            subdomain: auth
             name: authelia_session
             same_site: lax
             inactivity: 5m
