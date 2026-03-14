@@ -4,7 +4,7 @@ metadata:
   name: vm-ingress
   namespace: vm
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: vm-auth-mw@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: authelia-auth-mw@kubernetescrd
     traefik.ingress.kubernetes.io/ssl-redirect: "false"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
