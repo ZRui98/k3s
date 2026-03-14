@@ -28,13 +28,6 @@ spec:
 
     pod:
       replicas: 1
-      # /config holds the SQLite DB — not persistent across pod restarts (sessions lost on restart)
-      extraVolumes:
-        - name: authelia-data
-          emptyDir: {}
-      extraVolumeMounts:
-        - name: authelia-data
-          mountPath: /config
 
     configMap:
       authentication_backend:
@@ -71,9 +64,15 @@ spec:
             remember_me: 1M
 
       storage:
-        local:
+        postgres:
           enabled: true
-          path: /config/db.sqlite3
+          address: tcp://postgres.postgres.svc.cluster.local:5432
+          database: authelia
+          schema: public
+          username: authelia
+          password:
+            # Resolved to /secrets/authelia-secret/STORAGE_PASSWORD
+            path: STORAGE_PASSWORD
         encryption_key:
           # Resolved to /secrets/authelia-secret/STORAGE_ENCRYPTION_KEY
           path: STORAGE_ENCRYPTION_KEY
