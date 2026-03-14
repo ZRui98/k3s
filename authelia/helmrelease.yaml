@@ -1,0 +1,99 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: authelia
+spec:
+  chart:
+    spec:
+      chart: authelia
+      sourceRef:
+        kind: HelmRepository
+        name: authelia
+        namespace: flux-system
+      version: ">=0.9.0"
+  interval: 24h
+  timeout: 10m
+  releaseName: authelia
+  targetNamespace: authelia
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: enabled
+  values:
+    domain: zrui.dev
+
+    ingress:
+      enabled: true
+      subdomain: auth
+      className: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls:
+        enabled: true
+        secret: authelia-tls-secret
+
+    pod:
+      kind: Deployment
+      replicas: 1
+      extraVolumeMounts:
+        - name: authelia-data
+          mountPath: /config
+      extraVolumes:
+        - name: authelia-data
+          emptyDir: {}
+
+    configMap:
+      theme: light
+      default_2fa_method: ''
+
+      authentication_backend:
+        password_reset:
+          disable: true
+        refresh_interval: always
+        file:
+          enabled: true
+          path: /secrets/authelia-users/users_database.yml
+          password:
+            algorithm: argon2id
+
+      access_control:
+        default_policy: deny
+        rules:
+          - domain: "auth.zrui.dev"
+            policy: bypass
+          - domain:
+              - "*.zrui.dev"
+              - "*.k8s.zrui.dev"
+            policy: one_factor
+
+      session:
+        name: authelia_session
+        same_site: lax
+        inactivity: 5m
+        expiration: 1h
+        remember_me: 1M
+        cookies:
+          - domain: zrui.dev
+            authelia_url: https://auth.zrui.dev
+
+      storage:
+        local:
+          enabled: true
+          path: /config/db.sqlite3
+
+      notifier:
+        disable_startup_check: false
+        filesystem:
+          enabled: true
+          filename: /tmp/notification.txt
+
+    secret:
+      existingSecret: authelia-secret
+      additionalSecrets:
+        authelia-users:
+          items:
+            - key: users_database.yml
+              path: users_database.yml
