@@ -53,6 +53,13 @@ spec:
         encryption_key:
           # Resolved to /secrets/authelia-secret/SESSION_ENCRYPTION_KEY
           path: SESSION_ENCRYPTION_KEY
+        redis:
+          enabled: true
+          host: redis.redis.svc.cluster.local
+          port: 6379
+          password:
+            # Resolved to /secrets/authelia-secret/REDIS_PASSWORD
+            path: REDIS_PASSWORD
         cookies:
           - domain: zrui.dev
             authelia_url: 'https://auth.zrui.dev'
