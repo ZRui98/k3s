@@ -30,15 +30,6 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       rulesOverride:
         - host: auth.zrui.dev
-          http:
-            paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                  service:
-                    name: authelia
-                    port:
-                      number: 80
       tls:
         enabled: true
         secret: authelia-tls-secret
