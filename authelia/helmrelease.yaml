@@ -100,4 +100,7 @@ spec:
       existingSecret: authelia-secret
       # Mount the authelia-users secret at /secrets/authelia-users/
       additionalSecrets:
-        authelia-users: {}
+        authelia-users:
+          items:
+            - key: users_database.yml
+              path: users_database.yml
