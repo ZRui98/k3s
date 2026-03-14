@@ -23,11 +23,8 @@ spec:
   driftDetection:
     mode: enabled
   values:
-    domain: zrui.dev
-
     ingress:
       enabled: true
-      subdomain: auth
       className: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -36,53 +33,55 @@ spec:
         secret: authelia-tls-secret
 
     pod:
-      kind: Deployment
       replicas: 1
-      extraVolumeMounts:
-        - name: authelia-data
-          mountPath: /config
+      # /config holds the SQLite DB — not persistent across pod restarts (sessions lost on restart)
       extraVolumes:
         - name: authelia-data
           emptyDir: {}
+      extraVolumeMounts:
+        - name: authelia-data
+          mountPath: /config
 
     configMap:
-      theme: light
-      default_2fa_method: ''
-
       authentication_backend:
         password_reset:
           disable: true
-        refresh_interval: always
+        refresh_interval: 1m
         file:
           enabled: true
+          # Mounted from the authelia-users additionalSecret below
           path: /secrets/authelia-users/users_database.yml
-          password:
-            algorithm: argon2id
 
       access_control:
         default_policy: deny
         rules:
-          - domain: "auth.zrui.dev"
+          - domain: 'auth.zrui.dev'
             policy: bypass
           - domain:
-              - "*.zrui.dev"
-              - "*.k8s.zrui.dev"
+              - '*.zrui.dev'
+              - '*.k8s.zrui.dev'
             policy: one_factor
 
       session:
-        name: authelia_session
-        same_site: lax
-        inactivity: 5m
-        expiration: 1h
-        remember_me: 1M
+        encryption_key:
+          # Resolved to /secrets/authelia-secret/SESSION_ENCRYPTION_KEY
+          path: SESSION_ENCRYPTION_KEY
         cookies:
           - domain: zrui.dev
             authelia_url: https://auth.zrui.dev
+            name: authelia_session
+            same_site: lax
+            inactivity: 5m
+            expiration: 1h
+            remember_me: 1M
 
       storage:
         local:
           enabled: true
           path: /config/db.sqlite3
+        encryption_key:
+          # Resolved to /secrets/authelia-secret/STORAGE_ENCRYPTION_KEY
+          path: STORAGE_ENCRYPTION_KEY
 
       notifier:
         disable_startup_check: false
@@ -90,10 +89,15 @@ spec:
           enabled: true
           filename: /tmp/notification.txt
 
+      identity_validation:
+        reset_password:
+          secret:
+            # Resolved to /secrets/authelia-secret/JWT_HMAC_KEY
+            path: JWT_HMAC_KEY
+
     secret:
+      # Mount this K8s secret at /secrets/authelia-secret/
       existingSecret: authelia-secret
+      # Mount the authelia-users secret at /secrets/authelia-users/
       additionalSecrets:
-        authelia-users:
-          items:
-            - key: users_database.yml
-              path: users_database.yml
+        authelia-users: {}
