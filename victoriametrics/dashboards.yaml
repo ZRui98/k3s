@@ -81,10 +81,9 @@ data:
           "title": "Node Memory",
           "panels": [
             {
-              "title": "Memory Usage by Node",
+              "title": "Memory Usage by Node (GB)",
               "type": "chart",
-              "expr": ["node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes"],
-              "unit": "bytes"
+              "expr": ["(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1e9"]
             },
             {
               "title": "Memory Usage % by Node",
