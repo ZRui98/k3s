@@ -61,28 +61,6 @@ data:
       "title": "System Metrics",
       "rows": [
         {
-          "title": "Container CPU",
-          "panels": [
-            {
-              "title": "CPU Usage by Container",
-              "type": "chart",
-              "expr": ["rate(container_cpu_usage_seconds_total{container!=\"\",container!=\"POD\"}[5m])"],
-              "unit": "short"
-            }
-          ]
-        },
-        {
-          "title": "Container Memory",
-          "panels": [
-            {
-              "title": "Memory Usage by Container",
-              "type": "chart",
-              "expr": ["container_memory_working_set_bytes{container!=\"\",container!=\"POD\"}"],
-              "unit": "bytes"
-            }
-          ]
-        },
-        {
           "title": "Node CPU",
           "panels": [
             {
@@ -120,10 +98,9 @@ data:
           "title": "Node Disk",
           "panels": [
             {
-              "title": "Disk Usage by Node",
+              "title": "Disk Usage by Node (GB)",
               "type": "chart",
-              "expr": ["node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}"],
-              "unit": "bytes"
+              "expr": ["(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / 1e9"]
             },
             {
               "title": "Disk Usage % by Node",
