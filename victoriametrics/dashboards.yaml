@@ -14,17 +14,17 @@ data:
             {
               "title": "Not Ready",
               "type": "stat",
-              "expr": "count(gotk_reconcile_condition{type=\"Ready\",status=\"False\"}) or vector(0)"
+              "expr": ["count(gotk_reconcile_condition{type=\"Ready\",status=\"False\"}) or vector(0)"]
             },
             {
               "title": "Stalled",
               "type": "stat",
-              "expr": "count(gotk_reconcile_condition{type=\"Stalled\",status=\"True\"}) or vector(0)"
+              "expr": ["count(gotk_reconcile_condition{type=\"Stalled\",status=\"True\"}) or vector(0)"]
             },
             {
               "title": "Suspended",
               "type": "stat",
-              "expr": "count(gotk_suspend_status{suspended=\"true\"}) or vector(0)"
+              "expr": ["count(gotk_suspend_status{suspended=\"true\"}) or vector(0)"]
             }
           ]
         },
@@ -34,7 +34,7 @@ data:
             {
               "title": "Resources Not Ready",
               "type": "chart",
-              "expr": "gotk_reconcile_condition{type=\"Ready\",status=\"False\"}"
+              "expr": ["gotk_reconcile_condition{type=\"Ready\",status=\"False\"}"]
             }
           ]
         },
@@ -44,12 +44,12 @@ data:
             {
               "title": "Reconcile Errors per Minute",
               "type": "chart",
-              "expr": "sum(rate(gotk_reconcile_total{success=\"false\"}[5m])) by (kind, name, exported_namespace)"
+              "expr": ["sum(rate(gotk_reconcile_total{success=\"false\"}[5m])) by (kind, name, exported_namespace)"]
             },
             {
               "title": "Reconcile Duration (p99)",
               "type": "chart",
-              "expr": "histogram_quantile(0.99, sum(rate(gotk_reconcile_duration_seconds_bucket[5m])) by (le, kind, name))",
+              "expr": ["histogram_quantile(0.99, sum(rate(gotk_reconcile_duration_seconds_bucket[5m])) by (le, kind, name))"],
               "unit": "seconds"
             }
           ]
@@ -66,13 +66,13 @@ data:
             {
               "title": "CPU Usage per Node",
               "type": "chart",
-              "expr": "sum(rate(container_cpu_usage_seconds_total{id=\"/\"}[5m])) by (node)",
+              "expr": ["sum(rate(container_cpu_usage_seconds_total{id=\"/\"}[5m])) by (node)"],
               "unit": "short"
             },
             {
               "title": "CPU Usage %",
               "type": "chart",
-              "expr": "sum(rate(container_cpu_usage_seconds_total{id=\"/\"}[5m])) by (node) / on(node) machine_cpu_cores * 100",
+              "expr": ["sum(rate(container_cpu_usage_seconds_total{id=\"/\"}[5m])) by (node) / on(node) machine_cpu_cores * 100"],
               "unit": "percent"
             }
           ]
@@ -83,13 +83,13 @@ data:
             {
               "title": "Memory Usage per Node",
               "type": "chart",
-              "expr": "container_memory_working_set_bytes{id=\"/\"}",
+              "expr": ["container_memory_working_set_bytes{id=\"/\"}"],
               "unit": "bytes"
             },
             {
               "title": "Memory Usage %",
               "type": "chart",
-              "expr": "container_memory_working_set_bytes{id=\"/\"} / on(node) machine_memory_bytes * 100",
+              "expr": ["container_memory_working_set_bytes{id=\"/\"} / on(node) machine_memory_bytes * 100"],
               "unit": "percent"
             }
           ]
@@ -100,13 +100,13 @@ data:
             {
               "title": "Disk Usage per Node",
               "type": "chart",
-              "expr": "container_fs_usage_bytes{id=\"/\"}",
+              "expr": ["container_fs_usage_bytes{id=\"/\"}"],
               "unit": "bytes"
             },
             {
               "title": "Disk Usage %",
               "type": "chart",
-              "expr": "container_fs_usage_bytes{id=\"/\"} / container_fs_limit_bytes{id=\"/\"} * 100",
+              "expr": ["container_fs_usage_bytes{id=\"/\"} / container_fs_limit_bytes{id=\"/\"} * 100"],
               "unit": "percent"
             }
           ]
