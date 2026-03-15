@@ -25,11 +25,11 @@ spec:
   extraArgs:
     dedup.minScrapeInterval: 60s
     dashboardsDir: /dashboards
-  extraVolumes:
+  volumes:
     - name: dashboards
       configMap:
         name: vmui-dashboards
-  extraVolumeMounts:
+  volumeMounts:
     - name: dashboards
       mountPath: /dashboards
   resources:
