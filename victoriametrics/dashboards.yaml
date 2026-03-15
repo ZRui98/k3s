@@ -61,52 +61,74 @@ data:
       "title": "System Metrics",
       "rows": [
         {
-          "title": "CPU",
+          "title": "Container CPU",
           "panels": [
             {
-              "title": "CPU Usage per Node",
+              "title": "CPU Usage by Container",
               "type": "chart",
-              "expr": ["sum(rate(container_cpu_usage_seconds_total{id=\"/\"}[5m])) by (node)"],
+              "expr": ["rate(container_cpu_usage_seconds_total{container!=\"\",container!=\"POD\"}[5m])"],
               "unit": "short"
+            }
+          ]
+        },
+        {
+          "title": "Container Memory",
+          "panels": [
+            {
+              "title": "Memory Usage by Container",
+              "type": "chart",
+              "expr": ["container_memory_working_set_bytes{container!=\"\",container!=\"POD\"}"],
+              "unit": "bytes"
+            }
+          ]
+        },
+        {
+          "title": "Node CPU",
+          "panels": [
+            {
+              "title": "CPU Usage % by Node",
+              "type": "chart",
+              "expr": ["100 - (avg by (instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)"],
+              "unit": "percent"
             },
             {
-              "title": "CPU Usage %",
+              "title": "CPU Steal % by Node",
               "type": "chart",
-              "expr": ["sum(rate(container_cpu_usage_seconds_total{id=\"/\"}[5m])) by (node) / on(node) machine_cpu_cores * 100"],
+              "expr": ["avg by (instance) (rate(node_cpu_seconds_total{mode=\"steal\"}[5m])) * 100"],
               "unit": "percent"
             }
           ]
         },
         {
-          "title": "Memory",
+          "title": "Node Memory",
           "panels": [
             {
-              "title": "Memory Usage per Node",
+              "title": "Memory Usage by Node",
               "type": "chart",
-              "expr": ["container_memory_working_set_bytes{id=\"/\"}"],
+              "expr": ["node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes"],
               "unit": "bytes"
             },
             {
-              "title": "Memory Usage %",
+              "title": "Memory Usage % by Node",
               "type": "chart",
-              "expr": ["container_memory_working_set_bytes{id=\"/\"} / on(node) machine_memory_bytes * 100"],
+              "expr": ["(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100"],
               "unit": "percent"
             }
           ]
         },
         {
-          "title": "Disk",
+          "title": "Node Disk",
           "panels": [
             {
-              "title": "Disk Usage per Node",
+              "title": "Disk Usage by Node",
               "type": "chart",
-              "expr": ["container_fs_usage_bytes{id=\"/\"}"],
+              "expr": ["node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}"],
               "unit": "bytes"
             },
             {
-              "title": "Disk Usage %",
+              "title": "Disk Usage % by Node",
               "type": "chart",
-              "expr": ["container_fs_usage_bytes{id=\"/\"} / container_fs_limit_bytes{id=\"/\"} * 100"],
+              "expr": ["(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100"],
               "unit": "percent"
             }
           ]
