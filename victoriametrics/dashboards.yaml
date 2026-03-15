@@ -14,17 +14,7 @@ data:
             {
               "title": "Not Ready",
               "type": "stat",
-              "expr": ["count(gotk_reconcile_condition{type=\"Ready\",status=\"False\"}) or vector(0)"]
-            },
-            {
-              "title": "Stalled",
-              "type": "stat",
-              "expr": ["count(gotk_reconcile_condition{type=\"Stalled\",status=\"True\"}) or vector(0)"]
-            },
-            {
-              "title": "Suspended",
-              "type": "stat",
-              "expr": ["count(gotk_suspend_status{suspended=\"true\"}) or vector(0)"]
+              "expr": ["count(gotk_resource_info{ready=\"False\"}) or vector(0)"]
             }
           ]
         },
@@ -34,7 +24,7 @@ data:
             {
               "title": "Resources Not Ready",
               "type": "chart",
-              "expr": ["gotk_reconcile_condition{type=\"Ready\",status=\"False\"}"]
+              "expr": ["gotk_resource_info{ready=\"False\"}"]
             }
           ]
         },
