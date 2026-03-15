@@ -24,6 +24,14 @@ spec:
         storage: 10Gi
   extraArgs:
     dedup.minScrapeInterval: 60s
+    dashboardsDir: /dashboards
+  extraVolumes:
+    - name: dashboards
+      configMap:
+        name: vmui-dashboards
+  extraVolumeMounts:
+    - name: dashboards
+      mountPath: /dashboards
   resources:
     requests:
       memory: "500Mi"
