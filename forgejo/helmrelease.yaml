@@ -32,11 +32,20 @@ spec:
               operator: In
               values:
               - storage
+    service:
+      ssh:
+        type: NodePort
+        port: 22
+        nodePort: 30022
+
     gitea:
       admin:
         existingSecret: forgejo-admin-secret
       config:
         APP_NAME: "Forgejo"
+        server:
+          SSH_DOMAIN: git.zrui.dev
+          SSH_PORT: 30022
         service:
           DISABLE_REGISTRATION: true
         indexer:
