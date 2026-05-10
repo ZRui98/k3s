@@ -65,6 +65,10 @@ spec:
         env:
         - name: EULA
           value: "true"
+        - name: ENABLE_WHITELIST
+          value: "true"
+        - name: ENFORCE_WHITELIST
+          value: "true"
         - name: MOD_PLATFORM
           value: "AUTO_CURSEFORGE"
         - name: CF_SLUG
