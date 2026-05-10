@@ -46,14 +46,13 @@ spec:
     spec:
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: type
                 operator: In
                 values:
-                - storage
+                - compute
       containers:
       - name: minecraft
         image: itzg/minecraft-server
@@ -74,7 +73,7 @@ spec:
         - name: CF_SLUG
           value: "monifactory"
         - name: MEMORY
-          value: "6G"
+          value: "5G"
         - name: CF_API_KEY
           valueFrom:
             secretKeyRef:
@@ -82,10 +81,10 @@ spec:
               key: cf-api-key
         resources:
           requests:
-            memory: "7Gi"
+            memory: "6Gi"
             cpu: "2"
           limits:
-            memory: "7Gi"
+            memory: "6Gi"
         volumeMounts:
         - mountPath: /data
           name: minecraft-datadir
@@ -106,8 +105,10 @@ metadata:
   namespace: minecraft
   labels:
     app: minecraft
+  annotations:
+    mc-router.itzg.me/externalServerName: "mc.k8s.zrui.dev"
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: minecraft
   ports:
