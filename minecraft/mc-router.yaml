@@ -59,6 +59,7 @@ spec:
         imagePullPolicy: IfNotPresent
         args:
         - --in-kube-cluster
+        - --default=minecraft-server.minecraft.svc.cluster.local:25565
         ports:
         - name: minecraft
           containerPort: 25565
