@@ -53,6 +53,7 @@ spec:
         encryption_key:
           # Resolved to /secrets/authelia-secret/SESSION_ENCRYPTION_KEY
           path: SESSION_ENCRYPTION_KEY
+        remember_me: 1M
         redis:
           enabled: true
           host: redis.redis.svc.cluster.local
@@ -62,13 +63,12 @@ spec:
             path: REDIS_PASSWORD
         cookies:
           - domain: zrui.dev
-            authelia_url: 'https://auth.zrui.dev'
             subdomain: auth
             name: authelia_session
             same_site: lax
             inactivity: 5m
             expiration: 1h
-            remember_me: 1M
+            default_redirection_url: 'https://auth.zrui.dev'
 
       storage:
         postgres:
