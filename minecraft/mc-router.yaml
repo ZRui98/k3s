@@ -44,6 +44,15 @@ spec:
         app: mc-router
     spec:
       serviceAccountName: mc-router
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - compute
       containers:
       - name: mc-router
         image: itzg/mc-router
