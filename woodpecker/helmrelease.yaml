@@ -24,6 +24,9 @@ spec:
         WOODPECKER_BACKEND: "kubernetes"
         WOODPECKER_BACKEND_NAMESPACE: "woodpecker"
         WOODPECKER_BACKEND_K8S_VOLUME_SIZE: "6Gi"
+        # local-path (k3s) is RWO-only; RWX PVCs never provision.
+        WOODPECKER_BACKEND_K8S_STORAGE_CLASS: "local-path"
+        WOODPECKER_BACKEND_K8S_STORAGE_RWX: "false"
         WOODPECKER_MAX_WORKFLOWS: 5
       serviceAccount:
         name: "woodpecker-agent"
