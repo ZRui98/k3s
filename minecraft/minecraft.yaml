@@ -35,7 +35,7 @@ metadata:
     app: minecraft
 spec:
   serviceName: minecraft-server
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: minecraft
@@ -71,7 +71,9 @@ spec:
         - name: MOD_PLATFORM
           value: "AUTO_CURSEFORGE"
         - name: CF_SLUG
-          value: "monifactory"
+          value: "meatballcraft"
+	- name: CF_FILE_ID
+	  value: "8665734"
         - name: MEMORY
           value: "5G"
         - name: CF_API_KEY
