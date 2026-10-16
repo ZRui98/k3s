@@ -72,8 +72,8 @@ spec:
           value: "AUTO_CURSEFORGE"
         - name: CF_SLUG
           value: "meatballcraft"
-        - name: CF_FILE_ID
-          value: "8665734"
+        - name: CF_FILENAME_MATCHER
+          value: "0.18.6.4"
         - name: MEMORY
           value: "5G"
         - name: CF_API_KEY
