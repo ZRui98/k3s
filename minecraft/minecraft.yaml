@@ -68,27 +68,32 @@ spec:
           value: "true"
         - name: ENFORCE_WHITELIST
           value: "true"
-        - name: MOD_PLATFORM
-          value: "AUTO_CURSEFORGE"
-        - name: CF_SLUG
-          value: "terrafirmagreg-modern"
-        - name: CF_FILENAME_MATCHER
-          value: "0.13.10"
+        - name: WHITELIST
+          value: "dunkjog,EternalOverlord"
+        - name: TYPE
+          value: "FORGE"
+        - name: VERSION
+          value: "1.20.1"
+        - name: FORGE_VERSION
+          value: "47.4.13"
+        - name: GENERIC_PACKS
+          value: "TerraFirmaGreg-Modern-0.13.10-serverpack"
+        - name: GENERIC_PACKS_PREFIX
+          value: "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.13.10/"
+        - name: GENERIC_PACKS_SUFFIX
+          value: ".zip"
+        - name: SKIP_GENERIC_PACK_UPDATE_CHECK
+          value: "true"
         - name: LEVEL
           value: "tfg"
         - name: MEMORY
-          value: "5G"
-        - name: CF_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: curseforge-secrets
-              key: cf-api-key
+          value: "6G"
         resources:
           requests:
-            memory: "6Gi"
+            memory: "7680Mi"
             cpu: "1"
           limits:
-            memory: "6Gi"
+            memory: "7680Mi"
         volumeMounts:
         - mountPath: /data
           name: minecraft-datadir
