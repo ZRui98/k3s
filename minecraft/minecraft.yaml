@@ -84,6 +84,8 @@ spec:
           value: ".zip"
         - name: SKIP_GENERIC_PACK_UPDATE_CHECK
           value: "true"
+        - name: DIFFICULTY
+          value: "hard"
         - name: LEVEL
           value: "tfg"
         - name: MEMORY
